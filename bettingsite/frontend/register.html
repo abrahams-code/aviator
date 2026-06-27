@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Register</title>
+</head>
+<link rel="stylesheet" href="css/style.css">
+<body>
+
+<nav class="navbar">
+
+    <h2>Aviatrix</h2>
+
+    <div class="dropdown">
+
+        <button class="dropbtn">
+            ☰ Menu
+        </button>
+
+        <div class="dropdown-content">
+
+            <a href="login.html">
+                LOGIN
+            </a>
+
+            <a href="login.html">
+                DEPOSIT
+            </a>
+
+            <a href="withdraw.html">
+                WITHDRAW
+            </a>
+
+            <a href="about.html">
+                ABOUT
+            </a>
+
+            <a href="support.html">
+                SUPPORT
+            </a>
+
+
+        </div>
+
+    </div>
+
+</nav>
+
+<h2>Register</h2>
+
+<input type="text" id="username" placeholder="Username">
+
+<input type="email" id="email" placeholder="Email">
+
+<input type="password" id="password" placeholder="Password">
+
+<button class="registerBtn" onclick="register()">
+Register
+</button>
+<p id="message" class="msglg">You have an account? <a href="login.html">Login</a></p>
+
+<script src="js/app.js"></script>
+
+</body>
+</html>

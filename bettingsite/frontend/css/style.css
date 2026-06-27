@@ -1,0 +1,487 @@
+/* ─────────────────────────────────────────────────────────────────────────────
+   AVIATRIX — style.css
+   Palette:
+     Void          #080d17   page background
+     Cockpit       #0e1728   card / panel background
+     Instrument    #1a2640   borders / dividers
+     Horizon       #2a7fff   primary blue accent
+     Afterburner   #ff5e1a   crash / danger accent
+     Liftoff       #22d67a   win / cash-out accent
+     Cloud         #c8d8f0   primary text
+     Mist          #5a7aaa   secondary / muted text
+   Type:
+     Display  — 'Orbitron', monospace  (cockpit readouts, multiplier)
+     Body     — 'Inter', sans-serif    (labels, copy)
+   Signature:
+     The multiplier display is styled like an altimeter: segmented-look digits
+     in Orbitron with a subtle scan-line overlay — the one bold flourish.
+───────────────────────────────────────────────────────────────────────────── */
+
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Inter:wght@400;500;600&display=swap');
+
+/* ── Reset & base ──────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+    --void:        #080d17;
+    --cockpit:     #0e1728;
+    --instrument:  #1a2640;
+    --horizon:     #2a7fff;
+    --afterburner: #ff5e1a;
+    --liftoff:     #22d67a;
+    --cloud:       #c8d8f0;
+    --mist:        #5a7aaa;
+    --radius:      10px;
+    --radius-lg:   16px;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+    background: var(--void);
+    color: var(--cloud);
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    line-height: 1.55;
+    min-height: 100vh;
+}
+
+/* ── Navbar ────────────────────────────────────────────────────────────────── */
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 28px;
+    height: 58px;
+    background: var(--cockpit);
+    border-bottom: 1px solid var(--instrument);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.navbar h2 {
+    font-family: 'Orbitron', monospace;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    color: var(--horizon);
+    text-transform: uppercase;
+}
+
+/* ── Dropdown menu ─────────────────────────────────────────────────────────── */
+.dropdown { position: relative; }
+
+.dropbtn {
+    background: transparent;
+    border: 1px solid var(--instrument);
+    color: var(--cloud);
+    padding: 7px 16px;
+    border-radius: var(--radius);
+    cursor: pointer;
+    font-size: 14px;
+    font-family: 'Inter', sans-serif;
+    transition: border-color 0.2s, color 0.2s;
+}
+.dropbtn:hover { border-color: var(--horizon); color: var(--horizon); }
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: calc(100% + 8px);
+    background: var(--cockpit);
+    border: 1px solid var(--instrument);
+    border-radius: var(--radius);
+    min-width: 160px;
+    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+}
+.dropdown:hover .dropdown-content { display: block; }
+
+.dropdown-content a {
+    display: block;
+    padding: 11px 18px;
+    color: var(--cloud);
+    text-decoration: none;
+    font-size: 14px;
+    transition: background 0.15s, color 0.15s;
+}
+.dropdown-content a:hover { background: var(--instrument); color: #fff; }
+
+.dropdown-content a#logoutBtn {
+    color: var(--afterburner);
+    border-top: 1px solid var(--instrument);
+    font-weight: 600;
+}
+.dropdown-content a#logoutBtn:hover { background: rgba(255,94,26,0.12); }
+
+/* ── Stats bar (balance / level / xp) ─────────────────────────────────────── */
+.stats {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 32px;
+    flex-wrap: wrap;
+    padding: 10px 24px;
+    background: var(--cockpit);
+    border-bottom: 1px solid var(--instrument);
+    font-size: 13px;
+    color: var(--mist);
+}
+
+.stats h3 {
+    font-size: 11px;
+    font-family: 'Orbitron', monospace;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--mist);
+    margin-right: 4px;
+}
+
+.stats p { display: flex; align-items: center; gap: 6px; }
+
+.stats span {
+    font-family: 'Orbitron', monospace;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--cloud);
+}
+
+/* ── Main container ────────────────────────────────────────────────────────── */
+.container {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 28px 20px 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+}
+
+/* ── Altimeter / multiplier display — the signature element ────────────────── */
+.multiplier {
+    font-family: 'Orbitron', monospace;
+    font-size: clamp(56px, 12vw, 96px);
+    font-weight: 900;
+    letter-spacing: 0.04em;
+    color: #fff;
+    text-align: center;
+    line-height: 1;
+    position: relative;
+    padding: 32px 48px;
+    background: var(--cockpit);
+    border: 1px solid var(--instrument);
+    border-radius: var(--radius-lg);
+    width: 100%;
+    overflow: hidden;
+
+    /* scan-line texture — the one signature flourish */
+    background-image:
+        repeating-linear-gradient(
+            to bottom,
+            transparent 0px,
+            transparent 3px,
+            rgba(0,0,0,0.18) 3px,
+            rgba(0,0,0,0.18) 4px
+        );
+
+    transition: color 0.3s;
+}
+
+/* Ambient glow behind the number */
+.multiplier::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at center, rgba(42,127,255,0.08) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+/* Crashed state — swap glow to orange/red */
+.multiplier.crashed-display {
+    color: var(--afterburner) !important;
+    background-image:
+        repeating-linear-gradient(
+            to bottom,
+            transparent 0px,
+            transparent 3px,
+            rgba(0,0,0,0.18) 3px,
+            rgba(0,0,0,0.18) 4px
+        );
+}
+.multiplier.crashed-display::before {
+    background: radial-gradient(ellipse at center, rgba(255,94,26,0.12) 0%, transparent 70%);
+}
+
+/* ── Round status text ─────────────────────────────────────────────────────── */
+.status {
+    font-family: 'Orbitron', monospace;
+    font-size: 15px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 8px 20px;
+    border-radius: 999px;
+    border: 1px solid currentColor;
+    display: inline-block;
+}
+
+.status.running {
+    color: var(--liftoff);
+    background: rgba(34,214,122,0.08);
+}
+
+.status.crashed {
+    color: var(--afterburner);
+    background: rgba(255,94,26,0.08);
+}
+
+/* ── Countdown ─────────────────────────────────────────────────────────────── */
+#countdown {
+    font-family: 'Orbitron', monospace;
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    color: var(--mist);
+    text-align: center;
+}
+
+/* ── Bet panels ────────────────────────────────────────────────────────────── */
+.game-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    width: 100%;
+}
+
+/* Each button's wrapper (injected by JS as a sibling) stays in-flow;
+   we style the inputs JS injects and the buttons together */
+.game-actions > button,
+.game-actions input[type="number"] {
+    /* Both sit in the same grid cell via JS sibling injection —
+       we use a wrapper approach below for cleaner layout */
+}
+
+/* Bet button */
+.game-actions button {
+    width: 100%;
+    padding: 14px 20px;
+    border: none;
+    border-radius: var(--radius);
+    font-family: 'Orbitron', monospace;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    background: var(--horizon);
+    color: #fff;
+    transition: filter 0.2s, transform 0.1s;
+    margin-top: 8px;
+}
+.game-actions button:hover:not(:disabled) { filter: brightness(1.15); }
+.game-actions button:active:not(:disabled) { transform: scale(0.97); }
+.game-actions button:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* Bet amount inputs (injected by JS) */
+.game-actions input[type="number"] {
+    width: 100% !important;
+    padding: 12px 14px !important;
+    background: var(--cockpit) !important;
+    border: 1px solid var(--instrument) !important;
+    border-radius: var(--radius) !important;
+    color: var(--cloud) !important;
+    font-family: 'Orbitron', monospace !important;
+    font-size: 14px !important;
+    text-align: center;
+    transition: border-color 0.2s;
+    margin-right: 0 !important;
+}
+.game-actions input[type="number"]:focus {
+    outline: none;
+    border-color: var(--horizon) !important;
+}
+.game-actions input[type="number"]:disabled {
+    opacity: 0.45;
+}
+
+/* Remove number input arrows */
+.game-actions input[type="number"]::-webkit-inner-spin-button,
+.game-actions input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; }
+.game-actions input[type="number"] { -moz-appearance: textfield; }
+
+/* ── Score display ─────────────────────────────────────────────────────────── */
+#score {
+    font-family: 'Orbitron', monospace;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--horizon);
+}
+
+/* ── Round history ─────────────────────────────────────────────────────────── */
+.history {
+    width: 100%;
+    background: var(--cockpit);
+    border: 1px solid var(--instrument);
+    border-radius: var(--radius-lg);
+    padding: 20px 24px;
+}
+
+.history h2 {
+    font-family: 'Orbitron', monospace;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--mist);
+    margin-bottom: 14px;
+}
+
+#history {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.history-item {
+    font-family: 'Orbitron', monospace;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 5px 11px;
+    border-radius: 6px;
+    background: var(--instrument);
+    border: 1px solid rgba(255,255,255,0.04);
+    letter-spacing: 0.06em;
+    transition: transform 0.15s;
+}
+.history-item:hover { transform: scale(1.08); }
+
+/* ── Scrollbar ─────────────────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--void); }
+::-webkit-scrollbar-thumb { background: var(--instrument); border-radius: 3px; }
+
+/* ── Responsive ────────────────────────────────────────────────────────────── */
+@media (max-width: 600px) {
+    .navbar { padding: 0 16px; }
+    .container { padding: 20px 14px 48px; gap: 18px; }
+    .multiplier { font-size: 56px; padding: 24px 20px; }
+    .game-actions { grid-template-columns: 1fr; }
+    .stats { gap: 16px; padding: 8px 16px; }
+}
+
+/* ── Reduced motion ────────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { transition: none !important; animation: none !important; }
+}
+
+/* ── Additions for index.html semantic structure ───────────────────────────── */
+
+/* Navbar logo (replaces the old h2 inside nav) */
+.navbar-logo {
+    font-family: 'Orbitron', monospace;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    color: var(--horizon);
+    text-transform: uppercase;
+}
+
+/* Countdown paragraph */
+.countdown {
+    font-family: 'Orbitron', monospace;
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    color: var(--mist);
+    text-align: center;
+    margin: 0;
+}
+
+/* Bet panel — wraps label + input + button in one column */
+.bet-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    background: var(--cockpit);
+    border: 1px solid var(--instrument);
+    border-radius: var(--radius-lg);
+    padding: 18px 16px;
+}
+
+.bet-label {
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--mist);
+}
+
+/* Override game-actions grid to use bet-panel children */
+.game-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    width: 100%;
+}
+
+.bet-panel input[type="number"] {
+    width: 100%;
+    padding: 11px 14px;
+    background: var(--void);
+    border: 1px solid var(--instrument);
+    border-radius: var(--radius);
+    color: var(--cloud);
+    font-family: 'Orbitron', monospace;
+    font-size: 14px;
+    text-align: center;
+    transition: border-color 0.2s;
+    -moz-appearance: textfield;
+}
+.bet-panel input[type="number"]::-webkit-inner-spin-button,
+.bet-panel input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; }
+.bet-panel input[type="number"]:focus {
+    outline: none;
+    border-color: var(--horizon);
+}
+.bet-panel input[type="number"]:disabled { opacity: 0.45; }
+
+.bet-panel button {
+    width: 100%;
+    padding: 13px 20px;
+    border: none;
+    border-radius: var(--radius);
+    font-family: 'Orbitron', monospace;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    background: var(--horizon);
+    color: #fff;
+    transition: filter 0.2s, transform 0.1s;
+}
+.bet-panel button:hover:not(:disabled) { filter: brightness(1.15); }
+.bet-panel button:active:not(:disabled) { transform: scale(0.97); }
+.bet-panel button:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* Score row */
+.score-row {
+    font-size: 13px;
+    color: var(--mist);
+    margin: 0;
+}
+.score-row span {
+    font-family: 'Orbitron', monospace;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--horizon);
+}
+
+/* Game footer */
+.game-footer {
+    margin-top: auto;
+}
+
+/* Responsive update for bet-panel */
+@media (max-width: 600px) {
+    .game-actions { grid-template-columns: 1fr; }
+}

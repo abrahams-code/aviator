@@ -1,0 +1,202 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aviatrix</title>
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #0f172a;
+            color: white;
+            text-align: center;
+        }
+
+        header {
+            background: #1e293b;
+            padding: 20px;
+        }
+
+        h1 {
+            margin: 0;
+        }
+
+        .container {
+            padding: 30px;
+        }
+
+        .multiplier {
+            font-size: 80px;
+            font-weight: bold;
+            margin-top: 50px;
+        }
+
+        .status {
+            margin-top: 20px;
+            font-size: 24px;
+        }
+
+        .history {
+            margin-top: 40px;
+        }
+
+        .history-item {
+            display: inline-block;
+            padding: 10px;
+            margin: 5px;
+            background: #1e293b;
+            border-radius: 8px;
+        }
+
+        .crashed {
+            color: red;
+        }
+
+        .running {
+            color: lime;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Aviatrix</h1>
+</header>
+
+<nav class="navbar">
+
+    <h2>Aviatrix</h2>
+
+    <div class="dropdown">
+
+        <button class="dropbtn">
+            ☰ Menu
+        </button>
+
+        <div class="dropdown-content">
+
+            <a href="profile.html">
+                Profile
+            </a>
+
+            <a href="deposit.html">
+                Deposit
+            </a>
+
+            <a href="withdraw.html">
+                Withdraw
+            </a>
+
+            <a href="about.html">
+                About
+            </a>
+
+            <a href="support.html">
+                Support
+            </a>
+             <a href="login.html" id="logoutBtn">
+                LOGOUT
+            </a>
+
+        </div>
+
+    </div>
+
+</nav>
+
+
+
+
+
+
+<div class="stats">
+    <p>
+        Balance:
+        <span id="balance">0</span>
+        Credits
+    </p>
+</div>
+<div class="stats">
+
+    <p>
+        Level:
+        <span id="level">1</span>
+    </p>
+
+    <p>
+        XP:
+        <span id="xp">0</span>
+    </p>
+
+</div>
+
+
+<div class="container">
+
+    <div id="multiplier" class="multiplier">
+        1.00x
+    </div>
+
+    <div id="status" class="status running">
+        Waiting for round...
+    </div>
+    <h2 id="countdown">
+    Waiting...
+</h2>
+    <div class="game-actions">
+
+    <button id="joinRoundBtn">
+        Place Bet
+    </button>
+
+    <button id="joineRoundBtn2">
+        Place Bet
+    </button>
+
+</div>
+        <p>
+    Score:
+    <span id="score">0</span>
+</p>
+
+    <div class="history">
+        <h2>Round History</h2>
+        <div id="history"></div>
+    </div>
+
+
+
+</div>
+<div class="stats">
+    <h3>Game Statistics</h3>
+
+    <p>
+        Online Users:
+        <span id="onlineUsers">0</span>
+    </p>
+
+    <p>
+        Total Rounds:
+        <span id="totalRounds">0</span>
+    </p>
+
+    <p>
+        Last Crash:
+        <span id="latestCrash">0x</span>
+    </p>
+</div>
+
+
+
+<script src="http://localhost:5000/socket.io/socket.io.js"></script>
+
+<script src="js/game.js"></script>
+
+</body>
+</html>
+

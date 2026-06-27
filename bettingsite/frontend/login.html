@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+</head>
+<link rel="stylesheet" href="css/style.css">
+<body>
+
+<nav class="navbar">
+
+    <h2>Aviatrix</h2>
+
+    <div class="dropdown">
+
+        <button class="dropbtn">
+            ☰ Menu
+        </button>
+
+        <div class="dropdown-content">
+
+            <a href="register.html">
+                REGISTER
+            </a>
+
+            <a href="login.html">
+                DEPOSIT
+            </a>
+
+            <a href="login.html">
+                WITHDRAW
+            </a>
+
+            <a href="about.html">
+                ABOUT
+            </a>
+
+            <a href="support.html">
+                SUPPORT
+            </a>
+
+
+        </div>
+
+    </div>
+
+</nav>
+
+
+
+    
+<h2>Login</h2>
+
+<input type="email" id="email">
+
+<input type="password" id="password">
+
+<button onclick="login()">
+Login
+</button>
+
+<p id="message" class="msglg">Don't have an account? <a href="register.html">Register</a></p>
+
+<script src="js/app.js"></script>
+
+<script> 
+const data =
+    await response.json();
+
+localStorage.setItem(
+    "token",
+    data.token
+);
+
+window.location.href =
+    "game.html";
+</script>
+
+</body>
+</html>
